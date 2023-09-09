@@ -1,4 +1,5 @@
 import { TierType, AllDestinyManifestComponents } from "bungie-api-ts/destiny2";
+import { compress, decompress } from "lz-string";
 
 export function getInventoryItem(
   inventoryItemHash: number,
@@ -8,6 +9,7 @@ export function getInventoryItem(
   return item;
 }
 
+// transform bungie TierType to plain text
 export function getRarityFromTierType(tier?: TierType) {
   switch (tier) {
     case 2:
@@ -23,4 +25,14 @@ export function getRarityFromTierType(tier?: TierType) {
     default:
       return "";
   }
+}
+
+// compress using LZ on server
+export function compressJson(json: string) {
+  return compress(json);
+}
+
+// decompress on client
+export function decompressJson(compressed: string) {
+  return decompress(compressed);
 }

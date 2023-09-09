@@ -2,8 +2,10 @@ import { AllDestinyManifestComponents } from "bungie-api-ts/destiny2";
 import { getInventoryItem, getRarityFromTierType } from "./utils";
 
 type JsonValue = string | number | boolean | string[] | number[];
+
 type SearchValue = string | string[];
 
+// registered keywords for search
 export type SearchKeywords =
   | "name"
   | "rarity"
@@ -21,7 +23,7 @@ export type SearchKeywords =
 
 type SearchDbItem = Record<SearchKeywords, SearchValue>;
 
-// Definition for a "Filter Key"
+// Definition for a "Filter Keyword"
 interface KeywordDefinition {
   // filter keyword
   label: SearchKeywords;
@@ -42,7 +44,8 @@ type KeywordDefinitionDictionary = Partial<{
   };
 }>;
 
-export const keys: KeywordDefinitionDictionary = {
+// search keywords keyed by name
+export const keywordDictionary: KeywordDefinitionDictionary = {
   name: {
     label: "name",
     formatToDb: (hash, defs) => {
