@@ -2,8 +2,11 @@ import {
   TierType,
   AllDestinyManifestComponents,
   DamageType,
+  DestinyInventoryItemDefinition,
 } from "bungie-api-ts/destiny2";
 import { compress, decompress } from "lz-string";
+import watermarkToSeason from "@data/d2-additional-info/watermark-to-season.json";
+import watermarkToEvent from "@data/d2-additional-info/watermark-to-event.json";
 
 export function getInventoryItem(
   inventoryItemHash: number,
@@ -11,6 +14,12 @@ export function getInventoryItem(
 ) {
   const item = definitions.DestinyInventoryItemDefinition[inventoryItemHash];
   return item;
+}
+export function getWatermark(item: DestinyInventoryItemDefinition) {
+  const quality = item.quality;
+  const watermark =
+    quality?.displayVersionWatermarkIcons[quality.currentVersion];
+  return watermark;
 }
 
 export const getEnergyFromDamageType = (damageType?: DamageType | null) => {
@@ -62,6 +71,27 @@ export function getRarityFromTierType(tier?: TierType) {
       return "";
   }
 }
+export const getSeasonNumberFromWatermark = (watermarkSrc?: string) => {
+  if (!watermarkSrc) return null;
+  const strippedSrc = watermarkSrc.replace("https://www.bungie.net", "");
+  const watermarkItem =
+    watermarkToSeason[strippedSrc as keyof typeof watermarkToSeason];
+  if (!watermarkItem) return null;
+
+  return watermarkItem;
+};
+
+export const getEventFromWatermark = (watermarkSrc?: string) => {
+  if (!watermarkSrc) return null;
+  const strippedSrc = watermarkSrc.replace("https://www.bungie.net", "");
+  const watermarkItem =
+    watermarkToEvent[strippedSrc as keyof typeof watermarkToEvent];
+  if (!watermarkItem) return null;
+
+  return watermarkItem;
+};
+export const getIsAdeptFromName = (name: string) =>
+  name.search(/(Adept|Timelost|Harrowed)/) !== -1;
 
 // compress using LZ on server
 export function compressJson(json: string) {

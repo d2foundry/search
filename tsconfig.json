@@ -16,7 +16,10 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "incremental": true,
-    "baseUrl": "."
+    "baseUrl": ".",
+    "paths": {
+      "@data/*": ["src/data/*"]
+    }
   },
   "include": ["eslint.config.js", "**/**.js", "**/*.ts"],
   "exclude": ["node_modules"]
