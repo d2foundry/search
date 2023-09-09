@@ -1,17 +1,30 @@
 import { AllDestinyManifestComponents } from "bungie-api-ts/destiny2";
+import { getInventoryItem, getRarityFromTierType } from "./utils";
 
 type JsonValue = string | number | boolean | string[] | number[];
 type SearchValue = string | string[];
 
-interface SearchDbItem {
-  hash: number;
-  name: string;
-}
+export type SearchKeywords =
+  | "name"
+  | "rarity"
+  | "weapon"
+  | "trait"
+  | "trait_1"
+  | "trait_2"
+  | "season"
+  | "sunset"
+  | "craftable"
+  | "adept"
+  | "ammo"
+  | "energy"
+  | "rpm";
+
+type SearchDbItem = Record<SearchKeywords, SearchValue>;
 
 // Definition for a "Filter Key"
-interface Key {
+interface KeywordDefinition {
   // filter keyword
-  name: string;
+  label: SearchKeywords;
   // takes inventoryItemHash and D2 Manifest Components,
   // maps data relevant to this keyword to JSON-ok format
   formatToDb: (
@@ -23,13 +36,29 @@ interface Key {
   getFromDb: (searchDbItem: SearchDbItem) => SearchValue;
 }
 
-export const keys: Key[] = [
-  {
-    name: "displayName",
-    formatToDb: (hash, definitions) => {
-      const item = definitions.DestinyInventoryItemDefinition[hash];
+type KeywordDefinitionDictionary = Partial<{
+  [key in KeywordDefinition["label"]]: Omit<KeywordDefinition, "label"> & {
+    label: key;
+  };
+}>;
+
+export const keys: KeywordDefinitionDictionary = {
+  name: {
+    label: "name",
+    formatToDb: (hash, defs) => {
+      const item = getInventoryItem(hash, defs);
       return item.displayProperties.name;
     },
     getFromDb: (item) => item.name,
   },
-];
+  rarity: {
+    label: "rarity",
+    formatToDb: (hash, defs) => {
+      const item = getInventoryItem(hash, defs);
+      const tierType = item.inventory?.tierType ?? 0;
+      const rarity = getRarityFromTierType(tierType);
+      return rarity;
+    },
+    getFromDb: (item) => item.rarity,
+  },
+};
