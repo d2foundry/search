@@ -1,5 +1,12 @@
 import { AllDestinyManifestComponents } from "bungie-api-ts/destiny2";
-import { getInventoryItem, getRarityFromTierType } from "./utils";
+import {
+  getEnergyFromDamageType,
+  getInventoryItem,
+  getRarityFromTierType,
+  getSlotFromSlotHash,
+} from "./utils";
+
+const SUNSET_MAX_POWER = 1310;
 
 type JsonValue = string | number | boolean | string[] | number[];
 
@@ -15,6 +22,7 @@ export type SearchKeywords =
   | "trait_2"
   | "season"
   | "sunset"
+  | "slot"
   | "craftable"
   | "adept"
   | "ammo"
@@ -63,5 +71,54 @@ export const keywordDictionary: KeywordDefinitionDictionary = {
       return rarity;
     },
     getFromDb: (item) => item.rarity,
+  },
+  weapon: {
+    label: "weapon",
+    formatToDb: (hash, defs) => {
+      const item = getInventoryItem(hash, defs);
+      return item.itemTypeDisplayName;
+    },
+    getFromDb: (item) => item.weapon,
+  },
+  slot: {
+    label: "slot",
+    formatToDb: (hash, defs) => {
+      const item = getInventoryItem(hash, defs);
+      const slotHash = item.equippingBlock?.equipmentSlotTypeHash;
+      const slot = getSlotFromSlotHash(slotHash);
+      return slot;
+    },
+    getFromDb: (item) => item.slot,
+  },
+  sunset: {
+    label: "sunset",
+    formatToDb: (hash, defs) => {
+      const item = getInventoryItem(hash, defs);
+      const powerCapHash =
+        item?.quality?.versions[item.quality.currentVersion].powerCapHash;
+
+      if (typeof powerCapHash !== "undefined") {
+        const powerCapDef = defs.DestinyPowerCapDefinition[powerCapHash];
+        const isSunset = powerCapDef.powerCap < SUNSET_MAX_POWER;
+        return isSunset;
+      }
+      return false;
+    },
+    getFromDb: (item) => item.sunset,
+  },
+  energy: {
+    label: "energy",
+    formatToDb: (hash, defs) => {
+      const item = getInventoryItem(hash, defs);
+      if (typeof item.defaultDamageTypeHash !== "undefined") {
+        const damageType =
+          defs.DestinyDamageTypeDefinition[item.defaultDamageTypeHash]
+            .enumValue;
+        const energy = getEnergyFromDamageType(damageType);
+        return energy;
+      }
+      return "";
+    },
+    getFromDb: (item) => item.energy,
   },
 };
