@@ -3,10 +3,12 @@ import {
   AllDestinyManifestComponents,
   DamageType,
   DestinyInventoryItemDefinition,
+  DestinyAmmunitionType,
 } from "bungie-api-ts/destiny2";
 import { compress, decompress } from "lz-string";
 import watermarkToSeason from "@data/d2-additional-info/watermark-to-season.json";
 import watermarkToEvent from "@data/d2-additional-info/watermark-to-event.json";
+import { sourceLookup } from "@data/sourceInfoToItemLookUp";
 
 export function getInventoryItem(
   inventoryItemHash: number,
@@ -15,12 +17,38 @@ export function getInventoryItem(
   const item = definitions.DestinyInventoryItemDefinition[inventoryItemHash];
   return item;
 }
+
 export function getWatermark(item: DestinyInventoryItemDefinition) {
   const quality = item.quality;
   const watermark =
     quality?.displayVersionWatermarkIcons[quality.currentVersion];
   return watermark;
 }
+
+export const getItemSource = (
+  itemHash: number,
+  sourceHash?: number
+): string | string[] => {
+  if (sourceHash && sourceLookup[sourceHash]) {
+    return sourceLookup[sourceHash];
+  } else if (itemHash && sourceLookup[itemHash]) {
+    return sourceLookup[itemHash];
+  }
+  return "";
+};
+
+export const getAmmoType = (ammoType: DestinyAmmunitionType) => {
+  switch (ammoType) {
+    case 1:
+      return "Primary";
+    case 2:
+      return "Special";
+    case 3:
+      return "Heavy";
+    default:
+      return "";
+  }
+};
 
 export const getEnergyFromDamageType = (damageType?: DamageType | null) => {
   switch (damageType) {

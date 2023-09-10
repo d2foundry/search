@@ -1,9 +1,11 @@
 import { AllDestinyManifestComponents } from "bungie-api-ts/destiny2";
 import {
+  getAmmoType,
   getEnergyFromDamageType,
   getEventFromWatermark,
   getInventoryItem,
   getIsAdeptFromName,
+  getItemSource,
   getRarityFromTierType,
   getSeasonNumberFromWatermark,
   getSlotFromSlotHash,
@@ -36,6 +38,7 @@ export type SearchKeywords =
   | "rpm"
   | "season"
   | "slot"
+  | "source"
   | "sunset"
   | "trait_1"
   | "trait_2"
@@ -67,57 +70,40 @@ type KeywordDefinitionDictionary = Partial<{
 
 // search keywords keyed by name
 export const keywordDictionary: KeywordDefinitionDictionary = {
-  name: {
-    label: "name",
+  adept: {
+    label: "adept",
     formatToDb: (hash, defs) => {
       const item = getInventoryItem(hash, defs);
-      return item.displayProperties.name;
-    },
-    getFromDb: (item) => item.name,
-  },
-  rarity: {
-    label: "rarity",
-    formatToDb: (hash, defs) => {
-      const item = getInventoryItem(hash, defs);
-      const tierType = item.inventory?.tierType ?? 0;
-      const rarity = getRarityFromTierType(tierType);
-      return rarity;
-    },
-    getFromDb: (item) => item.rarity,
-  },
-  weapon: {
-    label: "weapon",
-    formatToDb: (hash, defs) => {
-      const item = getInventoryItem(hash, defs);
-      return item.itemTypeDisplayName;
-    },
-    getFromDb: (item) => item.weapon,
-  },
-  slot: {
-    label: "slot",
-    formatToDb: (hash, defs) => {
-      const item = getInventoryItem(hash, defs);
-      const slotHash = item.equippingBlock?.equipmentSlotTypeHash;
-      const slot = getSlotFromSlotHash(slotHash);
-      return slot;
-    },
-    getFromDb: (item) => item.slot,
-  },
-  sunset: {
-    label: "sunset",
-    formatToDb: (hash, defs) => {
-      const item = getInventoryItem(hash, defs);
-      const powerCapHash =
-        item?.quality?.versions[item.quality.currentVersion].powerCapHash;
 
-      if (typeof powerCapHash !== "undefined") {
-        const powerCapDef = defs.DestinyPowerCapDefinition[powerCapHash];
-        const isSunset = powerCapDef.powerCap < SUNSET_MAX_POWER;
-        return isSunset;
-      }
-      return false;
+      const isAdept =
+        adeptWeaponHashes.includes(item.hash) ||
+        getIsAdeptFromName(item?.displayProperties.name);
+      return isAdept;
     },
-    getFromDb: (item) => item.sunset,
+    getFromDb: (item) => item.adept,
+  },
+  ammo: {
+    label: "ammo",
+    formatToDb: (hash, defs) => {
+      const item = getInventoryItem(hash, defs);
+      const ammoType = item.equippingBlock?.ammoType;
+      if (typeof ammoType !== "undefined") {
+        const ammo = getAmmoType(ammoType);
+        return ammo;
+      }
+      return null;
+    },
+    getFromDb: (item) => item.ammo,
+  },
+  craftable: {
+    label: "craftable",
+    formatToDb: (hash, defs) => {
+      const item = getInventoryItem(hash, defs);
+
+      const isCraftable = craftableHashes.includes(item.hash);
+      return isCraftable;
+    },
+    getFromDb: (item) => item.craftable,
   },
   energy: {
     label: "energy",
@@ -133,6 +119,19 @@ export const keywordDictionary: KeywordDefinitionDictionary = {
       return null;
     },
     getFromDb: (item) => item.energy,
+  },
+  event: {
+    label: "event",
+    formatToDb: (hash, defs) => {
+      const item = getInventoryItem(hash, defs);
+      const watermark = getWatermark(item);
+      const event = SOTL_2023.includes(item.hash)
+        ? 4
+        : getEventFromWatermark(watermark);
+
+      return event;
+    },
+    getFromDb: (item) => item.event,
   },
   foundry: {
     label: "foundry",
@@ -162,6 +161,45 @@ export const keywordDictionary: KeywordDefinitionDictionary = {
     },
     getFromDb: (item) => item.foundry,
   },
+  frame: {
+    label: "frame",
+    formatToDb: (hash, defs) => {
+      const item = getInventoryItem(hash, defs);
+      const frameHash = item.sockets?.socketEntries[0].singleInitialItemHash;
+      const frameDef = frameHash ? getInventoryItem(frameHash, defs) : null;
+
+      const frame = frameDef?.displayProperties.name ?? null;
+      return frame;
+    },
+    getFromDb: (item) => item.frame,
+  },
+  name: {
+    label: "name",
+    formatToDb: (hash, defs) => {
+      const item = getInventoryItem(hash, defs);
+      return item.displayProperties.name;
+    },
+    getFromDb: (item) => item.name,
+  },
+  rarity: {
+    label: "rarity",
+    formatToDb: (hash, defs) => {
+      const item = getInventoryItem(hash, defs);
+      const tierType = item.inventory?.tierType ?? 0;
+      const rarity = getRarityFromTierType(tierType);
+      return rarity;
+    },
+    getFromDb: (item) => item.rarity,
+  },
+  rpm: {
+    label: "rpm",
+    formatToDb: (hash, defs) => {
+      const item = getInventoryItem(hash, defs);
+      const rpm = item.stats?.stats[4284893193]?.value ?? null;
+      return rpm;
+    },
+    getFromDb: (item) => item.rpm,
+  },
   season: {
     label: "season",
     formatToDb: (hash, defs) => {
@@ -178,51 +216,51 @@ export const keywordDictionary: KeywordDefinitionDictionary = {
     },
     getFromDb: (item) => item.season,
   },
-  event: {
-    label: "event",
+  slot: {
+    label: "slot",
     formatToDb: (hash, defs) => {
       const item = getInventoryItem(hash, defs);
-      const watermark = getWatermark(item);
-      const event = SOTL_2023.includes(item.hash)
-        ? 4
-        : getEventFromWatermark(watermark);
-
-      return event;
+      const slotHash = item.equippingBlock?.equipmentSlotTypeHash;
+      const slot = getSlotFromSlotHash(slotHash);
+      return slot;
     },
-    getFromDb: (item) => item.event,
+    getFromDb: (item) => item.slot,
   },
-  frame: {
-    label: "frame",
+  source: {
+    label: "source",
     formatToDb: (hash, defs) => {
       const item = getInventoryItem(hash, defs);
-      const frameHash = item.sockets?.socketEntries[0].singleInitialItemHash;
-      const frameDef = frameHash ? getInventoryItem(frameHash, defs) : null;
-
-      const frame = frameDef?.displayProperties.name ?? null;
-      return frame;
+      const collectible = item.collectibleHash
+        ? defs.DestinyCollectibleDefinition[item.collectibleHash]
+        : undefined;
+      const sourceHash = collectible?.sourceHash;
+      const source = getItemSource(item.hash, sourceHash);
+      return source;
     },
-    getFromDb: (item) => item.frame,
+    getFromDb: (item) => item.source,
   },
-  adept: {
-    label: "adept",
+  sunset: {
+    label: "sunset",
     formatToDb: (hash, defs) => {
       const item = getInventoryItem(hash, defs);
+      const powerCapHash =
+        item?.quality?.versions[item.quality.currentVersion].powerCapHash;
 
-      const isAdept =
-        adeptWeaponHashes.includes(item.hash) ||
-        getIsAdeptFromName(item?.displayProperties.name);
-      return isAdept;
+      if (typeof powerCapHash !== "undefined") {
+        const powerCapDef = defs.DestinyPowerCapDefinition[powerCapHash];
+        const isSunset = powerCapDef.powerCap < SUNSET_MAX_POWER;
+        return isSunset;
+      }
+      return false;
     },
-    getFromDb: (item) => item.adept,
+    getFromDb: (item) => item.sunset,
   },
-  craftable: {
-    label: "craftable",
+  weapon: {
+    label: "weapon",
     formatToDb: (hash, defs) => {
       const item = getInventoryItem(hash, defs);
-
-      const isCraftable = craftableHashes.includes(item.hash);
-      return isCraftable;
+      return item.itemTypeDisplayName;
     },
-    getFromDb: (item) => item.craftable,
+    getFromDb: (item) => item.weapon,
   },
 };
