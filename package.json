@@ -4,20 +4,20 @@
   "version": "1.0.0",
   "main": "/src/index.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "npx eslint && pnpm prettier-format",
+    "build": "bun build ./src/index.ts --outdir ./out --target browser",
+    "lint": "bunx eslint && bun run prettier-format",
     "prettier-format": "prettier --config .prettierrc 'src/**/*.{ts,js}' --write"
   },
   "type": "module",
   "license": "MIT",
   "devDependencies": {
-    "@types/node": "^20.5.9",
     "@typescript-eslint/eslint-plugin": "^6.6.0",
     "bungie-api-ts": "^5.0.0",
     "eslint": "^8.48.0",
     "eslint-config-prettier": "^9.0.0",
     "prettier": "^3.0.3",
-    "typescript": "^5.2.2"
+    "typescript": "^5.2.2",
+    "bun-types": "latest"
   },
   "dependencies": {
     "lz-string": "^1.5.0"

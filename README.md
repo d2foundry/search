@@ -12,9 +12,9 @@ Tools and configs for Foundry's Search
 
 ## Getting Started
 
-We use [pnpm](https://pnpm.io/) as a package manager. Ensure it is first installed, and run the following after cloning the repo.
+We use [bun](https://bun.sh/) as a package manager and runtime. Ensure it is first installed, and run the following after cloning the repo.
 
 ```bash
-pnpm install
+bun install
 ```
 
