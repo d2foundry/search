@@ -9,3 +9,12 @@ Tools and configs for Foundry's Search
    - gonna use https://github.com/pieroxy/lz-string/ to compress the JSON
 3. have a neat way to map keywords to the search db on the client side.
    - Arch for this has been solved more or less!
+
+## Getting Started
+
+We use [pnpm](https://pnpm.io/) as a package manager. Ensure it is first installed, and run the following after cloning the repo.
+
+```bash
+pnpm install
+```
+
