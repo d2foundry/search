@@ -10,6 +10,7 @@ import {
   getSeasonNumberFromWatermark,
   getSlotFromSlotHash,
   getWatermark,
+  mapItemSocketsToInventoryItems,
 } from "./utils";
 import craftableHashes from "@data/d2-additional-info/craftable-hashes.json";
 import watermarkToFoundry from "@data/watermarkToFoundry.json";
@@ -20,7 +21,7 @@ import { S22_EXOTICS, SOTL_2023 } from "./constants";
 
 const SUNSET_MAX_POWER = 1310;
 
-type JsonValue = string | number | boolean | string[] | number[] | null;
+type JsonValue = string | number | boolean | JsonValue[] | null;
 
 type SearchValue = string | string[];
 
@@ -34,6 +35,7 @@ export type SearchKeywords =
   | "foundry"
   | "frame"
   | "name"
+  | "perk"
   | "rarity"
   | "rpm"
   | "season"
@@ -42,7 +44,6 @@ export type SearchKeywords =
   | "sunset"
   | "trait_1"
   | "trait_2"
-  | "trait"
   | "weapon";
 
 type SearchDbItem = Record<SearchKeywords, SearchValue>;
@@ -180,6 +181,15 @@ export const keywordDictionary: KeywordDefinitionDictionary = {
       return item.displayProperties.name;
     },
     getFromDb: (item) => item.name,
+  },
+  perk: {
+    label: "perk",
+    formatToDb: (hash, defs) => {
+      const item = getInventoryItem(hash, defs);
+      let perks = mapItemSocketsToInventoryItems(item, defs);
+      return perks.map((s) => s.map((p) => p.displayProperties.name)).flat(1);
+    },
+    getFromDb: (item) => item.perk,
   },
   rarity: {
     label: "rarity",
