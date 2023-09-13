@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "main": "/src/index.ts",
   "scripts": {
-    "build": "bun build ./src/index.ts --outdir ./dist --target node --minify",
+    "build": "tsc && bun build ./src/index.ts --outdir ./dist --target node --minify",
     "lint": "bunx eslint && bun run prettier-format",
     "prettier-format": "prettier --config .prettierrc 'src/**/*.{ts,js}' --write"
   },

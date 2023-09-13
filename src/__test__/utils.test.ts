@@ -4,10 +4,10 @@ import {
   getItemSource,
   getAmmoType,
   getEnergyFromDamageType,
-  getEventFromWatermark,
+  // getEventFromWatermark,
   getRarityFromTierType,
-  getSlotFromSlotHash,
-  getSeasonNumberFromWatermark,
+  // getSlotFromSlotHash,
+  // getSeasonNumberFromWatermark,
 } from "src/utils";
 
 const MISSING_SOURCE_ITEM = 4024037919; // origin story
