@@ -23,5 +23,11 @@ jobs:
       - name: Lint
         run: bun run lint
         continue-on-error: true
+      - name: Test
+        run: bun run test
       - name: Build app
         run: bun run build
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: Apply formatting changes
+          commit_options: '--no-verify --signoff'
