@@ -2,10 +2,14 @@
   "name": "@d2foundry/search",
   "private": true,
   "version": "1.0.1",
+  "module": "./dist/index.js",
   "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "exports": {
+    "default": "./dist/index.js",
+    "types": "./dist/index.d.ts"
+  },
   "scripts": {
-    "build": "tsc && bun build ./src/index.ts --outdir ./dist --target node --minify",
+    "build": "tsc && bun build ./src/index.ts --outdir ./dist --target browser --minify",
     "lint": "bunx eslint && bun run prettier-format",
     "prettier-format": "prettier --config .prettierrc 'src/**/*.{ts,js}' --write"
   },
