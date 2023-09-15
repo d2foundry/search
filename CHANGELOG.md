@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/d2foundry/search/compare/v1.0.0...v1.1.0) (2023-09-15)
+
+
+### Features
+
+* add trait_1 and trait_2 ([f8badb3](https://github.com/d2foundry/search/commit/f8badb3fa12ac2dce7bcc7e74af3b9927a4fded5))
+
 # 1.0.0 (2023-09-15)
 
 
