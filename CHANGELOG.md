@@ -1,3 +1,10 @@
+## [1.2.1](https://github.com/d2foundry/search/compare/v1.2.0...v1.2.1) (2023-09-15)
+
+
+### Bug Fixes
+
+* export correct function ([dc69c26](https://github.com/d2foundry/search/commit/dc69c2646c563e7a7897f13e9f323d61825b08d1))
+
 # [1.2.0](https://github.com/d2foundry/search/compare/v1.1.0...v1.2.0) (2023-09-15)
 
 
