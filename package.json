@@ -13,13 +13,16 @@
   "type": "module",
   "license": "MIT",
   "devDependencies": {
+    "@semantic-release/changelog": "^6.0.3",
+    "@semantic-release/git": "^10.0.1",
     "@typescript-eslint/eslint-plugin": "^6.6.0",
+    "bun-types": "latest",
     "bungie-api-ts": "^5.0.0",
     "eslint": "^8.48.0",
     "eslint-config-prettier": "^9.0.0",
     "prettier": "^3.0.3",
-    "typescript": "^5.2.2",
-    "bun-types": "latest"
+    "semantic-release": "^21.1.1",
+    "typescript": "^5.2.2"
   },
   "dependencies": {
     "lz-string": "^1.5.0"
