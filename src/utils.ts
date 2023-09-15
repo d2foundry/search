@@ -240,6 +240,34 @@ export const getEventFromWatermark = (watermarkSrc?: string) => {
   return watermarkItem;
 };
 
+const WEAPONS_ITEM_CATEGORY = 1;
+const DUMMIES_ITEM_CATEGORY = 3109687656;
+
+export function hasWeaponItemCategory(item: DestinyInventoryItemDefinition) {
+  return item.itemCategoryHashes?.includes(WEAPONS_ITEM_CATEGORY);
+}
+
+export function hasDummyItemCategory(item: DestinyInventoryItemDefinition) {
+  return item.itemCategoryHashes?.includes(DUMMIES_ITEM_CATEGORY);
+}
+
+const Y1_ACRIUS_HASH = 1744115122;
+function isValidWeaponItem(item: DestinyInventoryItemDefinition) {
+  return !!(
+    hasWeaponItemCategory(item) &&
+    !hasDummyItemCategory(item) &&
+    item.hash !== Y1_ACRIUS_HASH
+  );
+}
+export function getWeaponInventoryItems(defs: AllDestinyManifestComponents) {
+  const itemDefs = defs.DestinyInventoryItemDefinition;
+  return Object.values(itemDefs).filter(isValidWeaponItem);
+}
+
+// itemDef.itemCategoryHashes?.includes(1) &&
+// !itemDef.itemCategoryHashes.includes(3109687656) &&
+// itemDef.hash !== 1744115122 // acrius
+
 export const getIsAdeptFromName = (name: string) =>
   name.search(/(Adept|Timelost|Harrowed)/) !== -1;
 
