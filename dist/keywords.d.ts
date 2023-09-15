@@ -2,7 +2,7 @@ import { AllDestinyManifestComponents, DestinyInventoryItemDefinition } from "bu
 type JsonValue = string | number | boolean | JsonValue[] | null;
 type SearchValue = string | string[];
 export type SearchKeywords = "adept" | "ammo" | "craftable" | "energy" | "event" | "foundry" | "frame" | "name" | "perk" | "rarity" | "rpm" | "season" | "slot" | "source" | "sunset" | "trait_1" | "trait_2" | "weapon";
-type SearchDbItem = Record<SearchKeywords, SearchValue>;
+export type SearchDbItem = Record<SearchKeywords, SearchValue>;
 export interface KeywordDefinition {
     label: SearchKeywords;
     formatToDb: (inventoryItemHash: number, definitions: AllDestinyManifestComponents) => JsonValue;
