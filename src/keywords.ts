@@ -49,7 +49,7 @@ export type SearchKeywords =
   | "trait_2"
   | "weapon";
 
-type SearchDbItem = Record<SearchKeywords, SearchValue>;
+export type SearchDbItem = Record<SearchKeywords, SearchValue>;
 
 // Definition for a "Filter Keyword"
 export interface KeywordDefinition {

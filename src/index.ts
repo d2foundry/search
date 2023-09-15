@@ -3,6 +3,7 @@ export type {
   KeywordDefinition,
   KeywordDefinitionDictionary,
   SearchKeywords,
+  SearchDbItem,
 } from "./keywords";
 export { decompressJson, compressJson } from "./utils";
-export { buildSearchDatabase } from "./api";
+export { getSearchDb } from "./api";
