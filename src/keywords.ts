@@ -265,6 +265,24 @@ export const keywordDictionary: KeywordDefinitionDictionary = {
     },
     getFromDb: (item) => item.sunset,
   },
+  trait_1: {
+    label: "trait_1",
+    formatToDb: (hash, defs) => {
+      const item = getInventoryItem(hash, defs);
+      let perks = mapItemSocketsToInventoryItems(item, defs);
+      return perks[2]?.map((p) => p.displayProperties.name) || [];
+    },
+    getFromDb: (item) => item.trait_1,
+  },
+  trait_2: {
+    label: "trait_2",
+    formatToDb: (hash, defs) => {
+      const item = getInventoryItem(hash, defs);
+      let perks = mapItemSocketsToInventoryItems(item, defs);
+      return perks[3]?.map((p) => p.displayProperties.name) || [];
+    },
+    getFromDb: (item) => item.trait_2,
+  },
   weapon: {
     label: "weapon",
     formatToDb: (hash, defs) => {
