@@ -1,4 +1,4 @@
-import { AllDestinyManifestComponents } from "bungie-api-ts/destiny2";
+import { AllDestinyManifestComponents, DestinyInventoryItemDefinition } from "bungie-api-ts/destiny2";
 type JsonValue = string | number | boolean | JsonValue[] | null;
 type SearchValue = string | string[];
 export type SearchKeywords = "adept" | "ammo" | "craftable" | "energy" | "event" | "foundry" | "frame" | "name" | "perk" | "rarity" | "rpm" | "season" | "slot" | "source" | "sunset" | "trait_1" | "trait_2" | "weapon";
@@ -14,4 +14,5 @@ export type KeywordDefinitionDictionary = Partial<{
     };
 }>;
 export declare const keywordDictionary: KeywordDefinitionDictionary;
+export declare function formatWeaponInventoryItemsToDb(weapons: DestinyInventoryItemDefinition[], defs: AllDestinyManifestComponents): SearchDbItem[];
 export {};

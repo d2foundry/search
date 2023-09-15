@@ -1,4 +1,7 @@
-import { AllDestinyManifestComponents } from "bungie-api-ts/destiny2";
+import {
+  AllDestinyManifestComponents,
+  DestinyInventoryItemDefinition,
+} from "bungie-api-ts/destiny2";
 import {
   getAmmoType,
   getEnergyFromDamageType,
@@ -292,3 +295,20 @@ export const keywordDictionary: KeywordDefinitionDictionary = {
     getFromDb: (item) => item.weapon,
   },
 };
+
+export function formatWeaponInventoryItemsToDb(
+  weapons: DestinyInventoryItemDefinition[],
+  defs: AllDestinyManifestComponents
+) {
+  const res = [];
+  for (const weapon of weapons) {
+    const formatted = Object.fromEntries(
+      Object.entries(keywordDictionary).map(([k, v]) => [
+        k,
+        v.formatToDb(weapon.hash, defs),
+      ])
+    ) as SearchDbItem;
+    res.push(formatted);
+  }
+  return res;
+}

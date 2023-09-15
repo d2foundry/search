@@ -5,3 +5,4 @@ export type {
   SearchKeywords,
 } from "./keywords";
 export { decompressJson, compressJson } from "./utils";
+export { buildSearchDatabase } from "./api";
