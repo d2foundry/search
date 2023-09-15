@@ -1,3 +1,10 @@
+## [1.2.2](https://github.com/d2foundry/search/compare/v1.2.1...v1.2.2) (2023-09-15)
+
+
+### Bug Fixes
+
+* build for me ([#8](https://github.com/d2foundry/search/issues/8)) ([48dd989](https://github.com/d2foundry/search/commit/48dd989d37849c70d4618e089fe04f128f1e2f90))
+
 ## [1.2.1](https://github.com/d2foundry/search/compare/v1.2.0...v1.2.1) (2023-09-15)
 
 
