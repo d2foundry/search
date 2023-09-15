@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/d2foundry/search/compare/v1.1.0...v1.2.0) (2023-09-15)
+
+
+### Features
+
+* api db builder functions ([#7](https://github.com/d2foundry/search/issues/7)) ([c59c095](https://github.com/d2foundry/search/commit/c59c095b7c6a3b72b124c92d19be62bd12516e2c))
+
 # [1.1.0](https://github.com/d2foundry/search/compare/v1.0.0...v1.1.0) (2023-09-15)
 
 
