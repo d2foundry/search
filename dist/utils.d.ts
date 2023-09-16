@@ -5,7 +5,7 @@ export declare function getWatermark(item: DestinyInventoryItemDefinition): stri
 export declare const getItemSource: (itemHash: number, sourceHash?: number) => string | string[];
 export declare const getAmmoType: (ammoType: DestinyAmmunitionType) => "" | "Primary" | "Special" | "Heavy";
 export declare const getEnergyFromDamageType: (damageType?: DamageType | null) => "" | "kinetic" | "arc" | "solar" | "void" | "stasis" | "strand";
-export declare const getSlotFromSlotHash: (slotHash?: number | null) => "" | "kinetic" | "energy" | "power";
+export declare const getSlotFromSlotHash: (slotHash?: number | null) => "energy" | "" | "kinetic" | "power";
 export declare function getRarityFromTierType(tier?: TierType): "common" | "uncommon" | "rare" | "legendary" | "exotic" | "";
 export declare const getSeasonNumberFromWatermark: (watermarkSrc?: string) => number | null;
 export declare const getEventFromWatermark: (watermarkSrc?: string) => number | null;
@@ -13,5 +13,6 @@ export declare function hasWeaponItemCategory(item: DestinyInventoryItemDefiniti
 export declare function hasDummyItemCategory(item: DestinyInventoryItemDefinition): boolean | undefined;
 export declare function getWeaponInventoryItems(defs: AllDestinyManifestComponents): DestinyInventoryItemDefinition[];
 export declare const getIsAdeptFromName: (name: string) => boolean;
+export declare const getBungieApiUrl: (url: string) => string;
 export declare function compressJson(json: string): string;
 export declare function decompressJson(compressed: string): string;

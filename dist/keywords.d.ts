@@ -1,8 +1,5 @@
 import { AllDestinyManifestComponents, DestinyInventoryItemDefinition } from "bungie-api-ts/destiny2";
-type JsonValue = string | number | boolean | JsonValue[] | null;
-type SearchValue = string | string[];
-export type SearchKeywords = "adept" | "ammo" | "craftable" | "energy" | "event" | "foundry" | "frame" | "name" | "perk" | "rarity" | "rpm" | "season" | "slot" | "source" | "sunset" | "trait_1" | "trait_2" | "weapon";
-export type SearchDbItem = Record<SearchKeywords, SearchValue>;
+import { JsonValue, SearchDbItem, SearchKeywords, SearchValue } from "./types";
 export interface KeywordDefinition {
     label: SearchKeywords;
     formatToDb: (inventoryItemHash: number, definitions: AllDestinyManifestComponents) => JsonValue;
@@ -15,4 +12,7 @@ export type KeywordDefinitionDictionary = Partial<{
 }>;
 export declare const keywordDictionary: KeywordDefinitionDictionary;
 export declare function formatWeaponInventoryItemsToDb(weapons: DestinyInventoryItemDefinition[], defs: AllDestinyManifestComponents): SearchDbItem[];
-export {};
+export declare const weaponSearchOptionKeys: {
+    name: "adept" | "ammo" | "craftable" | "energy" | "event" | "foundry" | "frame" | "name" | "perk" | "rarity" | "rpm" | "season" | "slot" | "source" | "sunset" | "trait_1" | "trait_2" | "weapon";
+    getFn: (searchDbItem: SearchDbItem) => SearchValue;
+}[];
