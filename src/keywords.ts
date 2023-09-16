@@ -25,6 +25,7 @@ import { S22_EXOTICS, SOTL_2023, SUNSET_MAX_POWER } from "./constants";
 import {
   JsonValue,
   SearchDbItem,
+  SearchDbItemWithMetadata,
   SearchDbMetadata,
   SearchKeywords,
   SearchValue,
@@ -275,6 +276,20 @@ export const keywordDictionary: KeywordDefinitionDictionary = {
   },
 };
 
+function formatItemToKeywordsDbItem(
+  hash: number,
+  defs: AllDestinyManifestComponents
+): SearchDbItem {
+  const res = Object.fromEntries(
+    Object.entries(keywordDictionary).map(([k, v]) => [
+      k,
+      v.formatToDb(hash, defs),
+    ])
+  ) as SearchDbItem;
+
+  return res;
+}
+
 function getMetadataEntries(
   hash: number,
   defs: AllDestinyManifestComponents
@@ -295,17 +310,12 @@ export function formatWeaponInventoryItemsToDb(
   weapons: DestinyInventoryItemDefinition[],
   defs: AllDestinyManifestComponents
 ) {
-  const res = [];
+  const res: SearchDbItemWithMetadata[] = [];
   for (const weapon of weapons) {
     const formatted = {
-      ...Object.fromEntries([
-        ...Object.entries(keywordDictionary).map(([k, v]) => [
-          k,
-          v.formatToDb(weapon.hash, defs),
-        ]),
-      ]),
+      ...formatItemToKeywordsDbItem(weapon.hash, defs),
       ...getMetadataEntries(weapon.hash, defs),
-    } as SearchDbItem;
+    };
     res.push(formatted);
   }
   return res;
