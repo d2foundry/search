@@ -1,3 +1,10 @@
+## [1.2.3](https://github.com/d2foundry/search/compare/v1.2.2...v1.2.3) (2023-09-16)
+
+
+### Bug Fixes
+
+* precompute search option keys, add metadata ([#9](https://github.com/d2foundry/search/issues/9)) ([1e1a8bb](https://github.com/d2foundry/search/commit/1e1a8bbcda867296ce92595ba5eaf06c3b9d0917))
+
 ## [1.2.2](https://github.com/d2foundry/search/compare/v1.2.1...v1.2.2) (2023-09-15)
 
 
