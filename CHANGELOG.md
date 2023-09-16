@@ -1,3 +1,10 @@
+## [1.2.4](https://github.com/d2foundry/search/compare/v1.2.3...v1.2.4) (2023-09-16)
+
+
+### Bug Fixes
+
+* res.json() ([#10](https://github.com/d2foundry/search/issues/10)) ([4e9f427](https://github.com/d2foundry/search/commit/4e9f427a0cb85ba85678364c7fb75815cae4bb89))
+
 ## [1.2.3](https://github.com/d2foundry/search/compare/v1.2.2...v1.2.3) (2023-09-16)
 
 
