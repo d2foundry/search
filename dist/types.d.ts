@@ -39,4 +39,5 @@ export interface SearchDbMetadata {
     iconSrc: string;
     watermarkSrc?: string;
 }
-export type SearchDbItem = Record<SearchKeywords, SearchValue> & SearchDbMetadata;
+export type SearchDbItem = Record<SearchKeywords, SearchValue>;
+export type SearchDbItemWithMetadata = SearchDbItem & SearchDbMetadata;

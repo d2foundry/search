@@ -18,13 +18,13 @@ export function buildSearchDatabase(defs: AllDestinyManifestComponents) {
 }
 
 export async function $http<T>(config: HttpClientConfig): Promise<T> {
-  const data = await fetch(config.url, {
+  const res = await fetch(config.url, {
     method: config.method,
     headers: {
       "X-API-KEY": process.env.BUNGIE_API_KEY ?? "",
     },
   });
-  // const data = await res.json();
+  const data = await res.json();
   return data as T;
 }
 
