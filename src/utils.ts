@@ -271,6 +271,8 @@ export function getWeaponInventoryItems(defs: AllDestinyManifestComponents) {
 export const getIsAdeptFromName = (name: string) =>
   name.search(/(Adept|Timelost|Harrowed)/) !== -1;
 
+export const getBungieApiUrl = (url: string) => `https://www.bungie.net${url}`;
+
 // compress using LZ on server
 export function compressJson(json: string) {
   return compress(json);
