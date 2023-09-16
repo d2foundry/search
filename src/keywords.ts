@@ -4,6 +4,7 @@ import {
 } from "bungie-api-ts/destiny2";
 import {
   getAmmoType,
+  getBungieApiUrl,
   getEnergyFromDamageType,
   getEventFromWatermark,
   getInventoryItem,
@@ -20,36 +21,14 @@ import watermarkToFoundry from "@data/watermarkToFoundry.json";
 
 import extendedFoundry from "@data/d2-additional-info/extended-foundry.json";
 import adeptWeaponHashes from "@data/d2-additional-info/adept-weapon-hashes.json";
-import { S22_EXOTICS, SOTL_2023 } from "./constants";
-
-const SUNSET_MAX_POWER = 1310;
-
-type JsonValue = string | number | boolean | JsonValue[] | null;
-
-type SearchValue = string | string[];
-
-// registered keywords for search
-export type SearchKeywords =
-  | "adept"
-  | "ammo"
-  | "craftable"
-  | "energy"
-  | "event"
-  | "foundry"
-  | "frame"
-  | "name"
-  | "perk"
-  | "rarity"
-  | "rpm"
-  | "season"
-  | "slot"
-  | "source"
-  | "sunset"
-  | "trait_1"
-  | "trait_2"
-  | "weapon";
-
-export type SearchDbItem = Record<SearchKeywords, SearchValue>;
+import { S22_EXOTICS, SOTL_2023, SUNSET_MAX_POWER } from "./constants";
+import {
+  JsonValue,
+  SearchDbItem,
+  SearchDbMetadata,
+  SearchKeywords,
+  SearchValue,
+} from "./types";
 
 // Definition for a "Filter Keyword"
 export interface KeywordDefinition {
@@ -296,19 +275,45 @@ export const keywordDictionary: KeywordDefinitionDictionary = {
   },
 };
 
+function getMetadataEntries(
+  hash: number,
+  defs: AllDestinyManifestComponents
+): SearchDbMetadata {
+  const item = getInventoryItem(hash, defs);
+  const { icon } = item.displayProperties;
+  const quality = item.quality;
+
+  const iconSrc = getBungieApiUrl(icon);
+  const watermark =
+    quality?.displayVersionWatermarkIcons[quality.currentVersion];
+  const watermarkSrc = watermark ? getBungieApiUrl(watermark) : undefined;
+
+  return { hash, iconSrc, watermarkSrc };
+}
+
 export function formatWeaponInventoryItemsToDb(
   weapons: DestinyInventoryItemDefinition[],
   defs: AllDestinyManifestComponents
 ) {
   const res = [];
   for (const weapon of weapons) {
-    const formatted = Object.fromEntries(
-      Object.entries(keywordDictionary).map(([k, v]) => [
-        k,
-        v.formatToDb(weapon.hash, defs),
-      ])
-    ) as SearchDbItem;
+    const formatted = {
+      ...Object.fromEntries([
+        ...Object.entries(keywordDictionary).map(([k, v]) => [
+          k,
+          v.formatToDb(weapon.hash, defs),
+        ]),
+      ]),
+      ...getMetadataEntries(weapon.hash, defs),
+    } as SearchDbItem;
     res.push(formatted);
   }
   return res;
 }
+
+export const weaponSearchOptionKeys = Object.values(keywordDictionary).map(
+  (v) => ({
+    name: v.label,
+    getFn: v.getFromDb,
+  })
+);
