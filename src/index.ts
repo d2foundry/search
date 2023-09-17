@@ -1,9 +1,17 @@
-export { keywordDictionary, weaponSearchOptionKeys } from "./keywords";
-export type {
-  KeywordDefinition,
-  KeywordDefinitionDictionary,
-} from "./keywords";
+export { decompressJson, compressJson } from "@utils";
 
-export type { SearchKeywords, SearchDbItem } from "./types";
-export { decompressJson, compressJson } from "./utils";
-export { getSearchDb } from "./api";
+export {
+  buildSearchDatabase,
+  getSearchDbFromDestinyApi,
+  weaponSearchOptionKeys,
+} from "@weapons";
+
+export type {
+  KeywordType,
+  WeaponSearchDbItem,
+  WeaponSearchKeywords,
+  WeaponSearchMetadataKeys,
+  WeaponSearchKeywordSchema,
+  WeaponSearchMetadataSchema,
+  KeywordDefinition,
+} from "@weapons";

@@ -35,33 +35,3 @@ export enum SocketPlugSources {
 export type JsonValue = string | number | boolean | JsonValue[] | null;
 
 export type SearchValue = string | string[];
-
-// registered keywords for search
-export type SearchKeywords =
-  | "adept"
-  | "ammo"
-  | "craftable"
-  | "energy"
-  | "event"
-  | "foundry"
-  | "frame"
-  | "name"
-  | "perk"
-  | "rarity"
-  | "rpm"
-  | "season"
-  | "slot"
-  | "source"
-  | "sunset"
-  | "trait_1"
-  | "trait_2"
-  | "weapon";
-
-export interface SearchDbMetadata {
-  hash: number;
-  iconSrc: string;
-  watermarkSrc?: string;
-}
-
-export type SearchDbItem = Record<SearchKeywords, SearchValue>;
-export type SearchDbItemWithMetadata = SearchDbItem & SearchDbMetadata;

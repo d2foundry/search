@@ -28,9 +28,13 @@
     "noUnusedParameters": true,
     "baseUrl": ".",
     "paths": {
-      "@data/*": ["src/data/*"]
+      "@data/*": ["src/data/*"],
+      "@dataSources/*": ["src/lib/dataSources/*"],
+      "@utils": ["src/utils/"],
+      "@weapons": ["src/lib/weapons/"],
+      "@/": ["src/index"]
     }
   },
-  "include": ["src/**/*"],
+  "include": ["src/**/*", "scripts/**/*"],
   "exclude": ["node_modules"]
 }
