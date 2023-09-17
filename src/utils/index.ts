@@ -9,7 +9,9 @@ import { compress, decompress } from "lz-string";
 import watermarkToSeason from "@data/d2-additional-info/watermark-to-season.json";
 import watermarkToEvent from "@data/d2-additional-info/watermark-to-event.json";
 import { sourceLookup } from "@data/sourceInfoToItemLookUp";
-import { SocketPlugSources } from "./types";
+import { SocketPlugSources } from "../types";
+import seasonTags from "@data/d2-additional-info/season-tags.json";
+import { D2EventInfo } from "@data/d2-additional-info/d2-event-info";
 
 export function getInventoryItem(
   inventoryItemHash: number,
@@ -230,6 +232,35 @@ export const getSeasonNumberFromWatermark = (watermarkSrc?: string) => {
   return watermarkItem;
 };
 
+const reverseSeasonTagLookup = Object.fromEntries(
+  Object.entries(seasonTags).map(([k, v]) => [v.toString(), k])
+);
+
+export const getSeasonNameFromNumber = (season?: number) => {
+  // const season = item.season;
+  // const event = item.event;
+
+  if (!season) return "";
+  // if (event) {
+  //   const tag = D2EventInfo[event as keyof typeof D2EventInfo];
+
+  //   return `${tag.name}`;
+  // }
+  if (!season) return "";
+
+  const tag = reverseSeasonTagLookup[season.toString()];
+  return `${tag}`;
+};
+
+export const getEventFromNumber = (event?: number) => {
+  // const season = item.season;
+  // const event = item.event;
+  if (event) {
+    const tag = D2EventInfo[event as keyof typeof D2EventInfo];
+
+    return `${tag.name}`;
+  }
+};
 export const getEventFromWatermark = (watermarkSrc?: string) => {
   if (!watermarkSrc) return null;
   const strippedSrc = watermarkSrc.replace("https://www.bungie.net", "");
