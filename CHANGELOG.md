@@ -1,3 +1,10 @@
+# [1.4.0](https://github.com/d2foundry/search/compare/v1.3.0...v1.4.0) (2023-09-18)
+
+
+### Features
+
+* add fuse sorter ([#15](https://github.com/d2foundry/search/issues/15)) ([c6067a7](https://github.com/d2foundry/search/commit/c6067a747ca5b8f7f50aa4cabf8fd89db7add1b5))
+
 # [1.3.0](https://github.com/d2foundry/search/compare/v1.2.4...v1.3.0) (2023-09-18)
 
 
