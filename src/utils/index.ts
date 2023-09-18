@@ -6,12 +6,12 @@ import {
   DestinyAmmunitionType,
 } from "bungie-api-ts/destiny2";
 import { compress, decompress } from "lz-string";
-import watermarkToSeason from "@data/d2-additional-info/watermark-to-season.json";
-import watermarkToEvent from "@data/d2-additional-info/watermark-to-event.json";
-import { sourceLookup } from "@data/sourceInfoToItemLookUp";
+import watermarkToSeason from "@/data/d2-additional-info/watermark-to-season.json";
+import watermarkToEvent from "@/data/d2-additional-info/watermark-to-event.json";
+import { sourceLookup } from "@/data/sourceInfoToItemLookUp";
 import { SocketPlugSources } from "../types";
-import seasonTags from "@data/d2-additional-info/season-tags.json";
-import { D2EventInfo } from "@data/d2-additional-info/d2-event-info";
+import seasonTags from "@/data/d2-additional-info/season-tags.json";
+import { D2EventInfo } from "@/data/d2-additional-info/d2-event-info";
 
 export function getInventoryItem(
   inventoryItemHash: number,
@@ -222,6 +222,24 @@ export function getRarityFromTierType(tier?: TierType) {
       return "";
   }
 }
+
+export const getTierTypeFromRarity = (rarity?: string) => {
+  switch (rarity) {
+    case "common":
+      return 2;
+    case "uncommon":
+      return 3;
+    case "rare":
+      return 4;
+    case "legendary":
+      return 5;
+    case "exotic":
+      return 6;
+    default:
+      return 0;
+  }
+};
+
 export const getSeasonNumberFromWatermark = (watermarkSrc?: string) => {
   if (!watermarkSrc) return null;
   const strippedSrc = watermarkSrc.replace("https://www.bungie.net", "");
@@ -313,3 +331,5 @@ export function compressJson(json: string) {
 export function decompressJson(compressed: string) {
   return decompress(compressed);
 }
+
+export { default as sorter, ValueType } from "./sorter";

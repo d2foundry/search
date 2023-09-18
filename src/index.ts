@@ -1,10 +1,10 @@
-export { decompressJson, compressJson } from "@utils";
+export { decompressJson, compressJson } from "@/utils";
 
 export {
   buildSearchDatabase,
   getSearchDbFromDestinyApi,
   weaponSearchOptionKeys,
-} from "@weapons";
+} from "@/weapons";
 
 export type {
   KeywordType,
@@ -14,4 +14,4 @@ export type {
   WeaponSearchKeywordSchema,
   WeaponSearchMetadataSchema,
   KeywordDefinition,
-} from "@weapons";
+} from "@/weapons";
