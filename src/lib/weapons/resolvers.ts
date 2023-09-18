@@ -12,13 +12,13 @@ import {
   getSlotFromSlotHash,
   getWatermark,
   mapItemSocketsToInventoryItems,
-} from "@utils";
+} from "@/utils";
 import { createMetadataResolver, createResolver } from "./createResolver";
-import craftableHashes from "@data/d2-additional-info/craftable-hashes.json";
-import watermarkToFoundry from "@data/watermarkToFoundry.json";
+import craftableHashes from "@/data/d2-additional-info/craftable-hashes.json";
+import watermarkToFoundry from "@/data/watermarkToFoundry.json";
 
-import extendedFoundry from "@data/d2-additional-info/extended-foundry.json";
-import adeptWeaponHashes from "@data/d2-additional-info/adept-weapon-hashes.json";
+import extendedFoundry from "@/data/d2-additional-info/extended-foundry.json";
+import adeptWeaponHashes from "@/data/d2-additional-info/adept-weapon-hashes.json";
 import { S22_EXOTICS, SOTL_2023, SUNSET_MAX_POWER } from "./constants";
 
 const adept = createResolver({

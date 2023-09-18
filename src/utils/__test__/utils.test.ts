@@ -8,7 +8,7 @@ import {
   getRarityFromTierType,
   // getSlotFromSlotHash,
   // getSeasonNumberFromWatermark,
-} from "src/utils";
+} from "../index";
 
 const MISSING_SOURCE_ITEM = 4024037919; // origin story
 const PROPHECY_SOURCE_HASH = 506073192;

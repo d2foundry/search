@@ -28,10 +28,10 @@
     "noUnusedParameters": true,
     "baseUrl": ".",
     "paths": {
-      "@data/*": ["src/data/*"],
-      "@dataSources/*": ["src/lib/dataSources/*"],
-      "@utils": ["src/utils/"],
-      "@weapons": ["src/lib/weapons/"],
+      "@/data/*": ["src/data/*"],
+      "@/dataSources/*": ["src/lib/dataSources/*"],
+      "@/utils": ["src/utils/"],
+      "@/weapons": ["src/lib/weapons/"],
       "@/": ["src/index"]
     }
   },
