@@ -6,6 +6,7 @@
   "main": "./dist/index.js",
   "typings": "./dist/index.d.ts",
   "scripts": {
+    "dev": "bun run ./src/server.ts",
     "build": "tsc && bun build ./src/index.ts --outdir ./dist --target browser --minify",
     "lint": "bunx eslint && bun run prettier-format",
     "prettier-format": "prettier --config .prettierrc 'src/**/*.{ts,js}' --write"

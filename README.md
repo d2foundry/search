@@ -14,3 +14,18 @@ We use [bun](https://bun.sh/) as a package manager and runtime. Ensure it is fir
 bun install
 ```
 
+**To run the dev server, you will need a `BUNGIE_API_KEY` in your `.env`**
+
+Then, run 
+
+```bash
+bun run dev
+```
+
+## Building
+
+To build the package for production, run
+
+```bash
+bun run build
+```
