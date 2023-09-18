@@ -17,6 +17,7 @@ declare const _default: {
     trait_1: import("./types").KeywordDefinition<"trait_1">;
     trait_2: import("./types").KeywordDefinition<"trait_2">;
     weapon: import("./types").KeywordDefinition<"weapon">;
+    zoom: import("./types").KeywordDefinition<"zoom">;
 };
 export default _default;
 export declare const getMetadata: (hash: number, defs: import("bungie-api-ts/destiny2").AllDestinyManifestComponents) => {

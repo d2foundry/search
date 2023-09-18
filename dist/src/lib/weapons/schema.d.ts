@@ -17,6 +17,7 @@ export interface WeaponSearchKeywordSchema {
     trait_1: string[];
     trait_2: string[];
     weapon: string;
+    zoom?: number;
 }
 export interface WeaponSearchMetadataSchema {
     hash: number;
