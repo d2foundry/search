@@ -1,3 +1,10 @@
+# [1.3.0](https://github.com/d2foundry/search/compare/v1.2.4...v1.3.0) (2023-09-18)
+
+
+### Features
+
+* add zoom as search criteria ([#14](https://github.com/d2foundry/search/issues/14)) ([3b57498](https://github.com/d2foundry/search/commit/3b57498a1d1a6f9cbf0d68a8d1d8e2d30bce3d68))
+
 ## [1.2.4](https://github.com/d2foundry/search/compare/v1.2.3...v1.2.4) (2023-09-16)
 
 
