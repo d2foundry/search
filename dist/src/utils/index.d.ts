@@ -7,6 +7,7 @@ export declare const getAmmoType: (ammoType: DestinyAmmunitionType) => "" | "Pri
 export declare const getEnergyFromDamageType: (damageType?: DamageType | null) => "" | "kinetic" | "arc" | "solar" | "void" | "stasis" | "strand";
 export declare const getSlotFromSlotHash: (slotHash?: number | null) => "" | "kinetic" | "energy" | "power";
 export declare function getRarityFromTierType(tier?: TierType): "common" | "uncommon" | "rare" | "legendary" | "exotic" | "";
+export declare const getTierTypeFromRarity: (rarity?: string) => 0 | 2 | 4 | 3 | 5 | 6;
 export declare const getSeasonNumberFromWatermark: (watermarkSrc?: string) => number | null;
 export declare const getSeasonNameFromNumber: (season?: number) => string;
 export declare const getEventFromNumber: (event?: number) => string | undefined;
@@ -18,3 +19,4 @@ export declare const getIsAdeptFromName: (name: string) => boolean;
 export declare const getBungieApiUrl: (url: string) => string;
 export declare function compressJson(json: string): string;
 export declare function decompressJson(compressed: string): string;
+export { default as sorter, ValueType } from "./sorter";
