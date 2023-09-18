@@ -260,6 +260,17 @@ const weapon = createResolver({
   getFromDb: (item) => item.weapon,
 });
 
+const zoom = createResolver({
+  label: "zoom",
+  formatToDb: (hash, defs) => {
+    const item = getInventoryItem(hash, defs);
+    // sourced from: https://github.com/d2foundry/oracle_engine/blob/d27fdbdb51f1b33e5496f45f4290686d21bc877d/src/d2_enums.rs#L140C13-L140C23
+    const zoom = item.stats?.stats[3555269338]?.value;
+    return zoom;
+  },
+  getFromDb: (item) => (item.zoom ? `${item.zoom}` : ""),
+});
+
 export default {
   adept,
   ammo,
@@ -279,6 +290,7 @@ export default {
   trait_1,
   trait_2,
   weapon,
+  zoom,
 };
 
 // Metadata
