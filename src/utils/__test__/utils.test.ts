@@ -1,14 +1,7 @@
 import { test, expect, describe } from "bun:test";
-import {
-  getIsAdeptFromName,
-  getItemSource,
-  getAmmoType,
-  getEnergyFromDamageType,
-  // getEventFromWatermark,
-  getRarityFromTierType,
-  // getSlotFromSlotHash,
-  // getSeasonNumberFromWatermark,
-} from "../index";
+import { getItemSource } from "../mapping/sources";
+import { getIsAdeptFromName } from "../items";
+import { getAmmoType, getEnergyFromDamageType, getRarityFromTierType } from "../mapping/itemProperties";
 
 const MISSING_SOURCE_ITEM = 4024037919; // origin story
 const PROPHECY_SOURCE_HASH = 506073192;

@@ -1,7 +1,7 @@
 import { AllDestinyManifestComponents } from "bungie-api-ts/destiny2";
-import { getWeaponInventoryItems } from "@/utils";
 import { getManifest } from "@/dataSources/destinyManifest";
 import reduceAllResolvers, { weaponSearchOptionKeys } from "./reduceResolvers";
+import { getWeaponInventoryItems } from "@/utils/items";
 
 function buildSearchDatabase(defs: AllDestinyManifestComponents) {
   const weapons = getWeaponInventoryItems(defs);

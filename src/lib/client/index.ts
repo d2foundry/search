@@ -1,6 +1,7 @@
-import { ValueType, sorter, getTierTypeFromRarity } from "@/utils";
+import { ValueType, sorter } from "@/utils";
 import type { WeaponSearchDbItem } from "@/weapons";
 import type { ClientSearchResults } from "./types";
+import { getTierTypeFromRarity } from "@/utils/mapping/itemProperties";
 
 type ClientWeaponSearchResults = ClientSearchResults<WeaponSearchDbItem>;
 

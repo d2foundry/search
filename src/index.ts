@@ -1,4 +1,4 @@
-export { decompressJson, compressJson } from "@/utils";
+export { decompressJson, compressJson } from "@/utils/json";
 
 export {
   buildSearchDatabase,

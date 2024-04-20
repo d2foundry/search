@@ -1,18 +1,3 @@
-import {
-  getAmmoType,
-  getBungieApiUrl,
-  getEnergyFromDamageType,
-  getEventFromNumber,
-  getEventFromWatermark,
-  getInventoryItem,
-  getIsAdeptFromName,
-  getItemSource,
-  getRarityFromTierType,
-  getSeasonNumberFromWatermark,
-  getSlotFromSlotHash,
-  getWatermark,
-  mapItemSocketsToInventoryItems,
-} from "@/utils";
 import { createMetadataResolver, createResolver } from "./createResolver";
 import craftableHashes from "@/data/d2-additional-info/craftable-hashes.json";
 import watermarkToFoundry from "@/data/watermarkToFoundry.json";
@@ -20,6 +5,25 @@ import watermarkToFoundry from "@/data/watermarkToFoundry.json";
 import extendedFoundry from "@/data/d2-additional-info/extended-foundry.json";
 import adeptWeaponHashes from "@/data/d2-additional-info/adept-weapon-hashes.json";
 import { S22_EXOTICS, SOTL_2023, SUNSET_MAX_POWER } from "./constants";
+import { getBungieApiUrl } from "src/utils/url";
+import {
+  getEventFromNumber,
+  getEventFromWatermark,
+  getItemSource,
+  getSeasonNumberFromWatermark,
+} from "src/utils/mapping/sources";
+import {
+  getInventoryItem,
+  getIsAdeptFromName,
+  getWatermark,
+  mapItemSocketsToInventoryItems,
+} from "src/utils/items";
+import {
+  getAmmoType,
+  getEnergyFromDamageType,
+  getRarityFromTierType,
+  getSlotFromSlotHash,
+} from "@/utils/mapping/itemProperties";
 
 const adept = createResolver({
   label: "adept",

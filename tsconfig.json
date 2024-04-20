@@ -30,7 +30,8 @@
     "paths": {
       "@/data/*": ["src/data/*"],
       "@/dataSources/*": ["src/lib/dataSources/*"],
-      "@/utils": ["src/utils/"],
+      "@/utils": ["src/utils"],
+      "@/utils/*": ["src/utils/*"],
       "@/weapons": ["src/lib/weapons/"],
       "@/": ["src/index"]
     }
